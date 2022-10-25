@@ -1,0 +1,21 @@
+1) Cambiare directory.
+cd "Path"
+2)creare cartella nella Path in cui sei.
+mkdir "nome cartella"
+3) Vedere file dentro alla cartella in cuin sei
+ls -a
+4)Creare cartella .git in cui hai lo storico dei salvataggi che hai fatto nel tempo.
+git init
+5)creare un file dentro la repository in cui sei. (in questo caso i comandi sono 2 e puoi scegliere quello che vuoi)
+touch nomefile.estensione tipo txt,py,ecc.
+echo "testo da mettere dentro al file" > nomefile.estensione tipo txt,py,ecc.
+6)leggere contenuto di un file.
+cut nomefile.estensione
+7) vedere lo stato dei tuoi file nel repository (cioè se sono stati committati o preparati per il commit)
+git status
+8)Preparare i file per il commit.
+git add nome file.estensione (se metti in fila più file te li aggiunge tutti).
+git add . (qui aggiungi tutti i file che vuoi).
+git add *.estensione (qui aggiungi tutti i file con l'estensione selezionata).
+
+
