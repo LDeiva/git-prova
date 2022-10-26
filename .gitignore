@@ -1,6 +1,6 @@
 #file txt
 *.txt
-!prova.txt
+!a.txt
 
 #cartelle
 Comandi scritti
