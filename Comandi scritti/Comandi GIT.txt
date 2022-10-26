@@ -1,3 +1,5 @@
+Primo Video
+
 1) Cambiare directory.
 cd "Path"
 2)creare cartella nella Path in cui sei.
@@ -17,5 +19,72 @@ git status
 git add nome file.estensione (se metti in fila più file te li aggiunge tutti).
 git add . (qui aggiungi tutti i file che vuoi).
 git add *.estensione (qui aggiungi tutti i file con l'estensione selezionata).
+8) Fare il commit.
+a) Metodo Furbo da usare:git commit -m "Scrivi cosa stati facendo (es. Primo commit)" -m "così aggiungi un altro testo, tipo qui dovresti indicare che tipo di modifica al file hai fatto".
+b) metodo più lungo: git commit: Ti apre una schermata dove schiacci tasto i su tastiera e puoi inserire la scritta "First Commit" è l'equivalente della prima -m poi fai esc e se metti :wq ti esegue il commit.
+ N.B. Flusso della commit: hai i tuoi file nella Working directory, se poi fai git add li metti nella staging area (index) che è una zona temporanea e con il commit li metti nella History (repository) dove hai i file salvati con le varie versioni, e da li li puoi riprendere quando vuoi con la versione che vuoi riportandoli nella working directory.
+
+Secondo Video
+
+1) Rimuovere dalla staging area i file messi li usando git add.
+git restore --staged nome file.estensione
+
+2) Vedere storico commit fatte.
+a)git log (Otterrai per ogni commit stampata su terminale che hai fatto delle informazioni, avrai un codice di 40 caratteri chiamato sha1 che ti crea delle chiavi univoche per non avere conflitti tra le commit, ti dice anche in che posizione sei e lo capisci dal testo Head che punta all'ultimo commit effettuato cioè il master. Per vedere ciò fai git/Head e ti stampa la referenza master che è riferito all'ultimo commit fatto, più avanti vedrai come spostare head ad un commit vecchio qui si parla di testa distaccata e servirà per passare da un branch ad un altro cioè da una commit ad un altra) 
+b) se metti dopo git log --oneline ti darà una versione più snella di git log se poi fai git log --online --reverse ti cambia l'ordine di stampaggio delle commit.
+
+3) Modificare una commit e tornare indietro.
+git reset:
+a) git reset --soft qui elimini ultima commit e torni allo stato pre commit quindi sei nella staging area
+b) git reset --mixed qui elimini ultima commit e torni alla working directory
+b) git reset --hard qui elimini ultima commit e torni alla working directory ma in più elimini il o i file che sono stati inseriti nella repository prima della penultima commit, da fare sempre sui file che hai in locale se no potresti eliminare file committati da colleghi nella repository comune.
+Per farle ste cose il comando è:
+git reset --soft|mixed|hard Head con dopo o la tilde "^" il numero di tilde di tidce di quante commit vuoi tornare indietro, o ~ e il numero di commit a cui vuoi andare indietro quindi esce ~1 o ~2 ecc. oppure sempre dopo head mettere il codice a 7 cifre della commit a cui vuoi tornare che ti esce da git log --oneline.
+
+4) Modificare ultima commit se non l hai fatta bene.
+git commit --ammend: questo ti apre l editor della commit e puoi fare le modifiche poi mettendo :wq esci dalla modifica e hai sostituito l'ultima commit con la stessa ma con le modifiche che vuoi.
+
+Terzo Video
+1) Usare il file .gitignore che è un txt.
+2) produci il file nella tua repository facendo touch .gitignore 
+3) una volta fatto puoi inserire dentro al txt il nome dei file e delle cartelle dentro alla tua repository che non vuoi fare aggiungere alla staging area con git add. così da escluderle dal commit.
+4) per farlo ci sono modi diversi:
+a) il più semplice è mettere per intero i nomi dei file con la loro estensione e delle cartelle che vuoi escludere.
+b) oppure puoi mettere *.estensione per escludere tutti i file con quell'estensione e se sotto a sto comando metti !nomefile.estensione ottieni che ti esclude tutti i file .estensione esclso quello dopo il !.
+c)Per le cartelle ho altre condizioni:
+per esempio se voglio che tutta la cartella possa essere considerata da git.add tranne una sottocartella faccio:
+nomecartella/nomesottocartella. Qui esclude solo la sottocartella.
+Se voglio escludere i file dentro la sottocartella con formato txt faccio, nomecartella/nomesottocartella/*.txt e mi esclude di tutto marasma solo i txt nella sottocartella.
+Poi ci sono varie altre combinazioni per le cartelle.
+
+Quarto video.
+Crei dal tuo Brank due nuovi brank, normalmente tu hai il tuo brank che è master ed è un etichetta che è puntato sul tuo ultimo commit, e hai il puntatore haed puntato su master.
+Puoi sdoppiare il tuo brank per poter creare due verisoni diverse dello stesso progetto con modifiche diverse e poi in futuro unirle.
+1) git log --all --decorate --oneline --graph (questo mostra le varie diramazioni del tuo branch)
+2) se fai alias graph="git log --all --decorate --oneline --graph" puoi usare graph invece di usare tutto il comando. (questo comando è da usare dopo il punto 3)
+3) crea Branch: git branch "nome branch" (fallo due volte con nomi diversi e ottieni le nuove etichette cioè i branch)
+4)vedere la lista dei branch: fai git branch e ti mostra il nome dei branch creati e in quale sei, subito avrai i due branch e master in verde che ti dice che tu sei in master originale ma hai anche altri due strade, l'asterisco è il puntatore haed. (In questo momento tu hai i tuoi branch sullo stesso livello cioè allo stesso commit, l'ultimo creato, perchè sono solo delle etichette, le diramazioni le crei facendo i vari commit per ogni branch creato).
+5)per mettere head su uno dei due nuovi branche fai: git checkout "nome branch".
+6)modificare e aggiungere testo a un file: vi "nome file.estensione" (ti apre la schermata con il testo del file che puoi modifcare e per farlo schiacchi la lettera i, e per uscire esc e poi :wq).
+7) un modo per fare add e commit assieme è fare git -am "commento del commit".
+8)per vedere differenza fra file in master e in una delle banch fai: git checkout master per tornare su master.
+Poi fai git diff master .."nome branch che vuoi confrontare".
+9) per unire il branch master ad una delle due nuove fai così: se sei su master fai git merge "nome branch che vuoi unire"
+10) per vedere i branch uniti fai: git branch --merged e ottieni il master in verde con asterisco e il branch unito, se hai unito sti due.
+11) ora che hai unito i due branch e hai master sull'ultimo commit il brach che hai creato prima e unito ora lo puoi eliminare e fai: git branch -d "nome branch da eliminare" (se tu volessi eliminare un branch mai unito dovresti usare lo stesso comando con la d maiuscola). 
+
+12) fare un merge a 3 vie perchè hai il master nel nuovo commit che è legato al commit del secondo branch tramite il commit che abbiamo diviso in due va fatto così:   
+Siccome sei in master fai: git merge "nome branch da unire"
+se i file sono con contenuto uguale no problem se no ottieni un conflitto con messaggio di errore.
+
+13) se hai dei conflitti con git status ti indica il problema.
+14) se hai conflitto prima cosa devi annullare il merge con git merge --abort.
+15) poi lo rifai con git merge "nome branch da unire" con master e poi fai vi nome file.estensione (ti mostra su terminale tutta la roba dentro ai file nei due branch con una fila di uguali che separa il contenuto di uno dall'altro e tu puoi eliminare uno dei due) poi fai :wq esci e hai unito i due.
+16) poi puoi fare git add e git commit e hai unito master al branch. 
+ 
+
+
+
+
 
 
